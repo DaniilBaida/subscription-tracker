@@ -38,6 +38,7 @@ const subscriptionSchema = new mongoose.Schema(
             required: true,
         },
         paymentMethod: {
+            type: String,
             required: true,
             trim: true,
         },
@@ -95,7 +96,7 @@ subscriptionSchema.pre("save", function (next) {
     if (this.renewalDate < new Date()) {
         this.status = "expired";
     }
-    next;
+    next();
 });
 
 const Subscription = mongoose.model("Subscription", subscriptionSchema);
